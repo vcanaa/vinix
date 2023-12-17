@@ -4,7 +4,7 @@
     mov     bx, HELLO_STRING
     call    print_string
 
-    mov     [BOOT_DRIVE], dl    ; BIOS stores our boot drive in DL, so it’s
+    mov     [BOOT_DRIVE], dl    ; BIOS stores our boot drive in DL, so it's
                                 ; best to remember this for later.
 
     mov     bp, 0x8000          ; Here we set our stack safely out of the

@@ -7,7 +7,7 @@
     mov     al, [the_secret]
     int     0x10                    ; Does this print an X?
 
-    mov     bx, 0x7c0               ; Can ’t set ds directly , so set bx
+    mov     bx, 0x7c0               ; Can 't set ds directly , so set bx
     mov     ds, bx                  ; then copy bx to ds.
     mov     al, [the_secret]
     int     0x10                    ; Does this print an X?
