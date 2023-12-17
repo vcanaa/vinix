@@ -1,0 +1,1 @@
+This is a product of following this [tutorial](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf) to make an os from scratch.
