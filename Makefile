@@ -1,7 +1,7 @@
 C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
 HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
 
-OBJ = ${C_SOURCES:.c=.o}
+OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 all: os-image
 
@@ -23,6 +23,14 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 		-static \
 		$^ \
 		--oformat binary
+
+kernel.elf: kernel/kernel_entry.o ${OBJ}
+	ld \
+		-m elf_i386 \
+		-o kernel.elf \
+		-Ttext 0x1000 \
+		-static \
+		$^
 
 # Build the kernel entry object file .
 %.o: %.asm
@@ -47,6 +55,7 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 		-Wall \
 		-Wextra \
 		-Werror \
+		-g \
 		-c $< \
 		-o $@
 
@@ -61,4 +70,4 @@ deploy-floppy: floppy.img
 .PHONY: clean
 clean:
 	rm -fr *.bin *.o os-image floppy.img
-	rm -fr kernel/*.o boot/*.bin drivers/*.o
+	rm -fr kernel/*.o boot/*.bin drivers/*.o libc/*.o cpu/*.o

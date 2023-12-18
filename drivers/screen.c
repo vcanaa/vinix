@@ -40,6 +40,32 @@ void kprint_at(char* message, int col, int row) {
   }
 }
 
+void kprint_on_screen(char* message, int col, int row) {
+  print_char('P', 0, 0, WHITE_ON_BLACK);
+  if (row < 0 || row >= MAX_ROWS) {
+    print_char('E', 0, 0, RED_ON_WHITE);
+    return;
+  }
+
+  print_char('P', 1, 0, WHITE_ON_BLACK);
+  if (col < 0) {
+    col = 0;
+  }
+
+  int i = 0;
+  // uint8_t* vidmem = (uint8_t*)VIDEO_ADDRESS;
+
+  print_char('P', 2, 0, WHITE_ON_BLACK);
+  while (i < 10) {
+    print_char(message[i], col, row, WHITE_ON_BLACK);
+    print_char('X', col, row+1, WHITE_ON_BLACK);
+    i++;
+    col++;
+    // vidmem[2 * (row * MAX_COLS + col++)] = message[i];
+  }
+  print_char('P', 10, 0, WHITE_ON_BLACK);
+}
+
 void kprint(char* message) {
   kprint_at(message, -1, -1);
 }
@@ -147,6 +173,14 @@ void clear_screen() {
 }
 
 
-int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }
-int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
-int get_offset_col(int offset) { return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2; }
+int get_offset(int col, int row) {
+  return 2 * (row * MAX_COLS + col);
+}
+
+int get_offset_row(int offset) {
+  return offset / (2 * MAX_COLS);
+}
+
+int get_offset_col(int offset) {
+  return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2;
+}
