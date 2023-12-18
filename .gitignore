@@ -1,7 +1,10 @@
 .vscode/*
 
+*.dump
 *.bin
 *.o
+*.out
+*.elf
 
 floppy.img
 

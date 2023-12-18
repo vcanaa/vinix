@@ -40,7 +40,12 @@ void kprint_at(char* message, int col, int row) {
   }
 }
 
-void kprint_on_screen(char* message, int col, int row) {
+void kprint_char() {
+  char text[] = "Hello there";
+  print_char(text[0], 0, 0, WHITE_ON_BLACK);
+}
+
+void kprint_on_screen(const char* message, int col, int row) {
   print_char('P', 0, 0, WHITE_ON_BLACK);
   if (row < 0 || row >= MAX_ROWS) {
     print_char('E', 0, 0, RED_ON_WHITE);
@@ -52,11 +57,13 @@ void kprint_on_screen(char* message, int col, int row) {
     col = 0;
   }
 
-  int i = 0;
+  unsigned int i = 0;
   // uint8_t* vidmem = (uint8_t*)VIDEO_ADDRESS;
 
+  // char* text = "Hello there";
+  // text[50] = message[0];
   print_char('P', 2, 0, WHITE_ON_BLACK);
-  while (i < 10) {
+  while (message[i] != 0) {
     print_char(message[i], col, row, WHITE_ON_BLACK);
     print_char('X', col, row+1, WHITE_ON_BLACK);
     i++;

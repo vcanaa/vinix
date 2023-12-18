@@ -43,19 +43,16 @@ void print_all_ascii_white(const int line) {
 // }
 
 void _start() {
-  clear_screen();
-  // print_char('X', 0, 0, 0x07);
-  kprint_on_screen("Welcome to Vinix", 1, 1);
-  // print_all_ascii_white(10);
-  // kprint("Hello, kernel World!");
-  // isr_install();
-  // irq_install();
+  // clear_screen();
 
-  // asm("int $2");
-  // asm("int $3");
+  isr_install();
+  irq_install();
 
-  // kprint("Type something, it will go through the kernel\n"
-  //   "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
+  asm("int $2");
+  asm("int $3");
+
+  kprint("Type something, it will go through the kernel\n"
+    "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
 }
 
 void user_input(char* input) {

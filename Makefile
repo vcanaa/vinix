@@ -8,6 +8,9 @@ all: os-image
 run: all
 	/mnt/c/Program\ Files/Bochs-2.7/bochs.exe -q -f bochsrc.bxrc
 
+qemu: all
+	/mnt/c/Program\ Files/Bochs-2.7/bochs.exe -q -f bochsrc.bxrc
+
 os-image: boot/boot_sect.bin kernel.bin
 	cat $^ > os-image
 
@@ -20,7 +23,6 @@ kernel.bin: kernel/kernel_entry.o ${OBJ}
 		-m elf_i386 \
 		-o kernel.bin \
 		-Ttext 0x1000 \
-		-static \
 		$^ \
 		--oformat binary
 
@@ -43,18 +45,12 @@ kernel.elf: kernel/kernel_entry.o ${OBJ}
 # -c: compile to object code.
 %.o : %.c ${HEADERS}
 	gcc \
-		-x c \
+		-fno-exceptions \
 		-m32 \
-		-march=x86-64 \
 		-ffreestanding \
-		-nostdlib \
-		-nostartfiles \
-		-fno-pic \
-		-fno-builtin \
-		-O0 \
+		-fno-pie \
 		-Wall \
 		-Wextra \
-		-Werror \
 		-g \
 		-c $< \
 		-o $@
