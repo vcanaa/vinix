@@ -61,6 +61,17 @@ void append(char s[], char n) {
   s[len + 1] = '\0';
 }
 
+void append_str(char s[], char x[]) {
+  int len = strlen(s);
+  int i = 0;
+  while(x[i] != '\0') {
+    s[len+i] = x[i];
+    i++;
+  }
+
+  s[len+i] = '\0';
+}
+
 void backspace(char s[]) {
   int len = strlen(s);
   s[len - 1] = '\0';

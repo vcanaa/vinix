@@ -1,15 +1,12 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c snake/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.h snake/*.h)
 
 OBJ = ${C_SOURCES:.c=.o cpu/interrupt.o}
 
 all: os-image
 
 run: all
-	/mnt/c/Program\ Files/Bochs-2.7/bochs.exe -q -f bochsrc.bxrc
-
-qemu: all
-	/mnt/c/Program\ Files/Bochs-2.7/bochs.exe -q -f bochsrc.bxrc
+	${BOCHS_HOME} -q -f bochsrc.bxrc
 
 os-image: boot/boot_sect.bin kernel.bin
 	cat $^ > os-image

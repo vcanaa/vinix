@@ -7,6 +7,7 @@ void reverse(char s[]);
 int strlen(char s[]);
 void backspace(char s[]);
 void append(char s[], char n);
+void append_str(char s[], char x[]);
 int strcmp(char s1[], char s2[]);
 
 #endif

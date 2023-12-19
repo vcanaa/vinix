@@ -4,6 +4,7 @@
 #include "../libc/string.h"
 #include "../libc/mem.h"
 #include <stdint.h>
+#include "../snake/game.h"
 
 // void clear_screen() {
 //   int i = 0;
@@ -48,11 +49,13 @@ void _start() {
   isr_install();
   irq_install();
 
-  asm("int $2");
-  asm("int $3");
+  // asm("int $2");
+  // asm("int $3");
 
-  kprint("Type something, it will go through the kernel\n"
-    "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
+  // kprint("Type something, it will go through the kernel\n"
+  //   "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
+
+  snake_init();
 }
 
 void user_input(char* input) {
